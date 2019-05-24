@@ -43,7 +43,10 @@ var objects = [];
 axios.get('/api/dates')
     .then((res) => {
         objects = res.data.dates.map((date, index) => new Node(date.Date, { x:index, y:0, z:0 }));
-        objects.forEach((obj) => scene.add(obj.mesh));
+        objects.forEach((obj) => {
+            scene.add(obj.mesh);
+            scene.add(obj.menuGroup);
+        });
     })
     .catch(err => console.log(err));
 
@@ -71,7 +74,7 @@ function onMouseover(event) {
 }
 
 function onClick(event) {
-    hovers.forEach((node) => console.log(node.date));
+    hovers.forEach((node) => node.onClick());
 }
 
 
@@ -88,7 +91,12 @@ function easing(x, target, rate) {
 
 function updateCamera() {
     const elapsedTime = clock.getElapsedTime();
-    camera.position.x = Math.sin(elapsedTime*0.1)*2.0;
+    camera.position.x = Math.sin(elapsedTime*0.1)*2.0
+    camera.position.y = Math.sin(elapsedTime*0.1) + 1;
+
+    // parallax
+    camera.position.x += (mouse.x * 1.6);
+    camera.position.y += (mouse.y * 1.2);
     camera.lookAt(0,0,0);
 }
 
@@ -100,10 +108,15 @@ function updateObjects() {
         var intersects = raycaster.intersectObject(obj.mesh);
         if (intersects.length) {
             hovers.push(obj);
+            // menus fade
+            //obj.menus.forEach((menu) => menu.fade('in'));
             var x = intersects[0].object.scale;
             x.set(1, easing(x.y, 2, 0.05), 1);
         } else {
             obj.mesh.scale.set(1, easing(obj.mesh.scale.y, 1, 0.1), 1);
+
+            // menus fade
+            //obj.menus.forEach((menu) => menu.fade('out'));
         }
     });
 }
