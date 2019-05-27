@@ -42,7 +42,11 @@ var objects = [];
 
 axios.get('/api/dates')
     .then((res) => {
-        objects = res.data.dates.map((date, index) => new Node(date.Date, { x:index, y:0, z:0 }));
+        var beginning = moment(res.data.dates[0].Date).unix();
+        var span = moment(res.data.dates[res.data.dates.length-1].Date).unix()
+            - beginning;
+        objects = res.data.dates.map((date, index) => new Node(date.Date, 
+            { x: (moment(date.Date).unix() - beginning)/span*10, y:0, z:0 }, date));
         objects.forEach((obj) => {
             scene.add(obj.mesh);
             scene.add(obj.menuGroup);
@@ -74,7 +78,8 @@ function onMouseover(event) {
 }
 
 function onClick(event) {
-    hovers.forEach((node) => node.onClick());
+    //hovers.forEach((node) => node.onClick());
+    objects.forEach((obj) => console.log(obj.menus[0].init()));
 }
 
 
@@ -113,11 +118,13 @@ function updateObjects() {
             var x = intersects[0].object.scale;
             x.set(1, easing(x.y, 2, 0.05), 1);
         } else {
-            obj.mesh.scale.set(1, easing(obj.mesh.scale.y, 1, 0.1), 1);
+            obj.mesh.scale.set(0.1, easing(obj.mesh.scale.y, 1, 0.1), 1);
 
             // menus fade
             //obj.menus.forEach((menu) => menu.fade('out'));
         }
+
+        obj.menus.forEach((menu) => menu.update(camera));
     });
 }
 

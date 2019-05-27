@@ -10,14 +10,16 @@ export default class Node {
 
         this.mesh = new THREE.Mesh(geometry, material);
         this.mesh.position.set(position.x, position.y, position.z);
+        //this.mesh.scale.set(0.1, 1, 1);
 
         this.date = date;
 
         this.menuGroup = new THREE.Group();
+        console.log(this.mesh.position.x, this.mesh.position.y);
         this.menus = [
-            new Menu(position, data)
+            new Menu(this.mesh.position, data)
         ];
-        this.menus.forEach((menu) => this.menuGroup.add(menu.mesh));
+        //this.menus.forEach((menu) => this.menuGroup.add(menu.mesh));
 
         //this.menu.init();
     }
