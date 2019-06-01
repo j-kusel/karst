@@ -8,7 +8,9 @@ module.exports = () => {
     const db = mongoose.connect(connectionStr, { useNewUrlParser: true });
 
     var models = [
-        'date'        
+        'date',
+        'category',
+        'author'
     ]
 
     models.forEach(model => require('../models/' + model));
