@@ -6,13 +6,15 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
+
+    <!-- Categories -->
     <form>
         <div class="form-group">
             <label for="CategoryName">Name</label>
             <input type="text" id="CategoryName" name="CategoryName">
         </div>
         <div class="form-group">
-            <label for="CategoryDescription">Name</label>
+            <label for="CategoryDescription">Description</label>
             <textarea class="form-control" rows="5" id="CategoryDescription" name="CategoryDescription"></textarea>
         </div>
         <div class="form-group">
@@ -23,13 +25,44 @@
         <button id="AddCategory">Add Category</button>
     </form>
 
-    <div class="input-group date" data-provide="datepicker">
-        <label for="Birthdate">Birthdate</label>
-        <input type="text" id="Birthdate" class="form-control datepicker">
-        <div class="input-group-addon">
-            <span class="glyphicon glyphicon-th"></span>
+    <!-- Authors -->
+    <form>
+        <div class="form-group">
+            <label for="AuthorName">Name</label>
+            <input type="text" id="AuthorName" name="AuthorName">
         </div>
-    </div>
+        <div class="form-group">
+            <label for="AuthorDescription">Name</label>
+            <textarea class="form-control" rows="5" id="AuthorDescription" name="AuthorDescription"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="AuthorCat">Parent Category</label>
+            <select id="AuthorCat" name="AuthorCat">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="AuthorDates">Event</label>
+            <select id="AuthorDates" name="AuthorDates">
+            </select>
+        </div>
+        <div class="input-group date" data-provide="datepicker">
+            <label for="Birthdate">Birthdate</label>
+            <input type="text" id="Birthdate" class="form-control datepicker">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+        <div class="input-group date" data-provide="datepicker">
+            <label for="Deathdate">Deathdate</label>
+            <input type="text" id="Deathdate" class="form-control datepicker">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+
+        <button id="AddAuthor">Add Author</button>
+    </form>
+
 
         
 
